@@ -1,9 +1,9 @@
 __author__ = 'serg'
 
-import os
+
 import getopt
 import sys
-
+from subprocess import call
 
 class Executer:
     def __init__(self, args):
@@ -20,4 +20,5 @@ class Executer:
         pass
 
     def execute(self):
-        os.execv(self.name, self.exArgs)
+        print self.exArgs
+        call(self.exArgs)

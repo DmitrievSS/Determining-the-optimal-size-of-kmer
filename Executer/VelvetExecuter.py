@@ -1,22 +1,24 @@
 __author__ = 'serg'
 
 from Executer import Executer
-
+from Constants import VELVET
 
 class VelvetExecuter(Executer):
     def __init__(self, args):
         Executer.__init__(self, args)
-        self.name = "./../velvet/velveth"
+        self.name = VELVET
 
     def interpret(self):
+        self.exArgs = [None]*6
+        self.exArgs[0] = VELVET
         for opt, arg in self.opts:
             if opt == "--k":
-                self.exArgs[1] = arg
+                self.exArgs[2] = arg
             if opt == "--o":
-                self.exArgs[0] = arg
+                self.exArgs[1] = arg
             if opt == "--i":
-                self.exArgs[4](arg)
+                self.exArgs[5] = arg
             if opt == "--f":
-                self.exArgs[2] = "-" + arg
-            if opt == "--r":
                 self.exArgs[3] = "-" + arg
+            if opt == "--r":
+                self.exArgs[4] = "-" + arg
