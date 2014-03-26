@@ -1,4 +1,5 @@
 .idea*
 reads/*
 *.pyc
-
+*/test/*
+todo.list

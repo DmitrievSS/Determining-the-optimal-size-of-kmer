@@ -1,20 +1,18 @@
-from subprocess import call
-
 __author__ = 'serg'
 
 from run import *
 prefix = "../reads/"
-# prefix = "/home/serg/work/Baka/reads/"
-kmers = [10, 20, 30]
+kmers = [19, 25, 31, 35, 41]
 reads = prefix + "frag_1.fastq"
-assemblers = ["Velvet"]
-tmp = ["abyss-pe", "name=testout", "k=10", "in='" + reads + "'"]
-print tmp
-# call(["./../../velvet/velveth", 'testVelvet10', '10', '-fastq', '-short', '../reads/frag_1.fastq'])
-# call(tmp)
+# kmers = [19]
+assemblers = ["Abyss", "Velvet"]
 
 for k in kmers:
     for assembler in assemblers:
-        args = [assembler, "--o", "test" + assembler + str(k), "--k", str(k),
-                "--i", reads, "--f", "fastq", "--r", "short"]
+        args = [assembler, "--o", "test" + assembler + "/" + str(k), "--k", str(k),
+                "--i", reads, "--f", "fastq", "--r", "long"]
         run(args)
+
+assemblers = ["SPAdes"]
+args = [assembler, "--o", "test" + assembler + "/" + str(k), "--k", str(k),
+                "--i", reads, "--f", "fastq", "--r", "long"]

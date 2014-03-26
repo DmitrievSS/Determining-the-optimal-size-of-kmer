@@ -1,7 +1,8 @@
 __author__ = 'serg'
 from AbyssExecuter import AbyssExecuter
 from VelvetExecuter import VelvetExecuter
-assemblers = {"Abyss": AbyssExecuter, "Velvet": VelvetExecuter}
+from SPadesExecuter import SPAdesExecuter
+assemblers = {"Abyss": AbyssExecuter, "Velvet": VelvetExecuter, "SPAdes": SPAdesExecuter}
 
 
 def run(args):

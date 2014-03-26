@@ -1,4 +1,7 @@
 __author__ = 'serg'
 
 ABYSS = "abyss-pe"
-VELVET = "./../../velvet/velveth"
+VELVETH = "./../../velvet/velveth"
+VELVETG = "./../../velvet/velvetg"
+SPAdes = "../../SPAdes/bin/spades.py"
+Python = "python"
