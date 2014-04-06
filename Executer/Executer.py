@@ -1,9 +1,9 @@
 __author__ = 'serg'
 
-
 import getopt
 import sys
 from subprocess import call
+
 
 class Executer:
     def __init__(self, args):

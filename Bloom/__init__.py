@@ -1,7 +1,7 @@
+__author__ = 'serg'
+
 from BloomFilter import BloomFilter
 from Utils.Decorators import timing_val
-
-__author__ = 'serg'
 
 # @timing_val
 def exist(bf, str, differentkmers, kstart):
@@ -14,6 +14,7 @@ def exist(bf, str, differentkmers, kstart):
     if kmerhashes[0]:
         differentkmers[length - kstart - 1] += 1
     return kmerhashes
+
 
 # @timing_val
 def getkmers(k):
@@ -36,9 +37,10 @@ def run(kstart, kend):
             for l in xrange(0, kend - kstart - 1):
                 exist(bloomFilter, line[len(line) - kend + l:-1], differentkmers, kstart)
 
-        map(lambda x, y: output.write(str(y+1) + "  different kmers = " +
-                                      str(x) +"\n"), differentkmers, xrange(kstart, kend))
+        map(lambda x, y: output.write(str(y + 1) + "  different kmers = " +
+                                      str(x) + "\n"), differentkmers, xrange(kstart, kend))
         output.close()
         strInput.close
+
 
 run(19, 40)

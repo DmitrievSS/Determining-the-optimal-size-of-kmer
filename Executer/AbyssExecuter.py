@@ -4,7 +4,6 @@ from Executer import Executer
 from Constants import *
 
 
-
 class AbyssExecuter(Executer):
     def __init__(self, args):
         Executer.__init__(self, args)

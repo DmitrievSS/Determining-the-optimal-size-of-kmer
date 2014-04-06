@@ -2,6 +2,7 @@ __author__ = 'serg'
 from AbyssExecuter import AbyssExecuter
 from VelvetExecuter import VelvetExecuter
 from SPadesExecuter import SPAdesExecuter
+
 assemblers = {"Abyss": AbyssExecuter, "Velvet": VelvetExecuter, "SPAdes": SPAdesExecuter}
 
 

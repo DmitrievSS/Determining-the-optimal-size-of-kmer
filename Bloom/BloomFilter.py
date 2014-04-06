@@ -16,12 +16,11 @@ class BloomFilter():
             for _ in xrange(19):
                 self.hashtable[x].append(self.hashtable[x][_] * (x + 1))
 
-
     def hash(self):
         result = []
         for i in xrange(self.k):
             x = i
-
+            
             def tmphash(str):
                 res = 1
                 for j in xrange(len(str)):
@@ -39,6 +38,7 @@ class BloomFilter():
                 res = (prev[i] + ord(str[len(str) - 1]) * self.hashtable[x][len(str) - 1 - 20]) % self.m
                 return res
             result.append(tmphash)
+
         return result
 
     def add(self, str):
@@ -54,10 +54,8 @@ class BloomFilter():
             tmp.append(str_hash)
             if self.list[str_hash]:
                 result = False
-
         for h in tmp:
             self.list[h] = True
-
         return result, tmp
 
     def exists(self, str):
@@ -68,8 +66,6 @@ class BloomFilter():
             tmp.append(str_hash)
             if self.list[str_hash]:
                 result = False
-
         for h in tmp:
             self.list[h] = True
-
-        return result,tmp
+        return result, tmp
