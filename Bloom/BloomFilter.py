@@ -8,7 +8,6 @@ class BloomFilter():
         self.m = int(- n * logn(e, p) / (logn(e, 2) ** 2))
         self.k = int(self.m / n * logn(e, 2))
         self.list = [False for _ in xrange(self.m)]
-        self.savedhash = {}
 
     def hash(self):
         result = []
@@ -18,39 +17,51 @@ class BloomFilter():
             def tmphash(str):
                 res = 1
                 for j in xrange(len(str)):
-                    res += str[j] * x**j
+                    res = (res + ord(str[j]) * x**j) % self.m
                 return res
             result.append(tmphash)
         return result
 
-    def hash(self, prev):
+    def qhash(self, prev):
         result = []
         for i in xrange(self.k):
             x = i
 
             def tmphash(str):
-                res = prev[i] + str[len(str) - 1] * x**(len(str) - 1)
+                res = (prev[i] + ord(str[len(str) - 1]) * x**(len(str) - 1)) % self.m
                 return res
-            result.append(tmphash())
+            result.append(tmphash)
+        return result
 
     def add(self, str):
-        res = []
-        for f in hash():
+        for f in self.hash():
             str_hash = f(str)
-            res.append(str_hash)
             self.list[str_hash] = True
-        self.savedhash[str] = res
 
-    def add(self, str, prev):
-        res = []
-        for f in hash():
-            str_hash = f(str, prev)
-            res.append(str_hash)
-            self.list[str_hash] = True
-        self.savedhash[str] = res
+    def qexists(self, str, prev):
+        tmp = []
+        result = True
+        for f in self.qhash(prev):
+            str_hash = f(str)
+            tmp.append(str_hash)
+            if self.list[str_hash]:
+                result = False
+
+        for h in tmp:
+            self.list[h] = True
+
+        return result, tmp
 
     def exists(self, str):
-        for f in hash():
-            if not self.list[f(str)]:
-                return False
-        return True
+        tmp = []
+        result = True
+        for f in self.hash():
+            str_hash = f(str)
+            tmp.append(str_hash)
+            if self.list[str_hash]:
+                result = False
+
+        for h in tmp:
+            self.list[h] = True
+
+        return result,tmp
