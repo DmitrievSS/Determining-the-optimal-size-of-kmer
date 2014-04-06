@@ -6,7 +6,7 @@ def timing_val(func):
     def tmp(*args, **kwargs):
         t = time.time()
         res = func(*args, **kwargs)
-        print "Time : %f \n" % (time.time() - t)
+        print "Time %s: %f\n" % (func.__name__, time.time() - t)
         return res
 
     return tmp
