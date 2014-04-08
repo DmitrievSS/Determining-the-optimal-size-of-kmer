@@ -1,4 +1,4 @@
-from Utils.Constants import KMERB
+
 
 __author__ = 'serg'
 
@@ -33,7 +33,7 @@ def getkmers(k):
 @timing_val
 def run(kstart, kend):
     differentkmers = [0 for _ in xrange(kstart, kend)]
-    bloomFilter = [BloomFilter(50000000, 0.01) for _ in xrange(kstart, kend)]
+    bloomFilter = [BloomFilter(5000000, 0.01) for _ in xrange(kstart, kend)]
     # with open("Bloom/output", "w") as output:
     with open("output", "w") as output:
         strInput = getkmers(kstart)
