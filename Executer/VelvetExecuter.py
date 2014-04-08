@@ -3,7 +3,7 @@ from subprocess import call
 __author__ = 'serg'
 
 from Executer import Executer
-from Constants import VELVETH, VELVETG
+from Utils.Constants import VELVETH, VELVETG
 
 
 class VelvetExecuter(Executer):

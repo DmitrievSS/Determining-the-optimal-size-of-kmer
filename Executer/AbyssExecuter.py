@@ -1,7 +1,7 @@
 __author__ = 'serg'
 
 from Executer import Executer
-from Constants import *
+from Utils.Constants import *
 
 
 class AbyssExecuter(Executer):
