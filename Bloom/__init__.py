@@ -1,4 +1,4 @@
-
+import sys
 
 __author__ = 'serg'
 
@@ -26,14 +26,14 @@ def exist(bf, kmer, differentkmers, kstart, line):
 # @timing_val
 def getkmers(k):
     # input = open("Bloom/input", "r")
-    input = open("../../norm.fastq", "r")
+    input = open("new.fastq", "r")
     return input
 
 
 @timing_val
 def run(kstart, kend):
     differentkmers = [0 for _ in xrange(kstart, kend)]
-    bloomFilter = [BloomFilter(5000000, 0.01) for _ in xrange(kstart, kend)]
+    bloomFilter = [BloomFilter(50000, 0.01) for _ in xrange(kstart, kend)]
     # with open("Bloom/output", "w") as output:
     with open("output", "w") as output:
         strInput = getkmers(kstart)
@@ -46,6 +46,7 @@ def run(kstart, kend):
 
         map(lambda x, y: output.write(str(y + 1) + "  different kmers = " +
                                       str(x) + "\n"), differentkmers, xrange(kstart, kend))
+        # output.write("max diff kmers " + differentkmers.sort()[0])
         output.close()
         strInput.close
 
