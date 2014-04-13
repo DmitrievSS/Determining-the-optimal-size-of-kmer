@@ -25,6 +25,7 @@ public:
     bloom_filter(int n, double p){
         m = -n * log(p) / (log(2)*log(2));
         k = m / n * log(2);
+        //cout <<k<<" k \n";
         list = vector<bool>(m);
         for (int i =0; i < m; i++)
             list[i] = false;
@@ -70,6 +71,7 @@ public:
             int kmer_hash = hashfunc(i, kmer,prev[i],c);
             tmp[i] = kmer_hash;
             if (!list[ abs(kmer_hash % m)]){
+                //cout <<kmer_hash<< " hash \n";
                 result = true;
             }
         }
@@ -83,13 +85,15 @@ public:
 }; 
 
 vector<unsigned int> differentkmer;
-pair<bool, vector<int>> exist (vector<bloom_filter> bf, string kmer, int kstart, string line){
+vector<bloom_filter> bf;
+
+pair<bool, vector<int>> exist (string kmer, int kstart, string line){
     pair<bool,vector <int>> kmerhashes;
     if  (kmer.size() <= 20)
         kmerhashes = bf[kmer.size() - kstart -1].exists(kmer);
     else
         //cout << " recurs \n";
-        kmerhashes = bf[kmer.size() - kstart -1].exists(kmer, exist(bf, kmer.substr(0,kmer.size()-1), kstart, line).second);
+        kmerhashes = bf[kmer.size() - kstart -1].exists(kmer, exist(kmer.substr(0,kmer.size()-1), kstart, line).second);
     if (kmerhashes.first)
         differentkmer[kmer.size() - kstart -1] ++;
     pair<bool,vector <int>> lastkmerhashes = kmerhashes;
@@ -103,7 +107,6 @@ pair<bool, vector<int>> exist (vector<bloom_filter> bf, string kmer, int kstart,
 
 
 int main(){
-    vector<bloom_filter> bf;
     differentkmer.reserve(MAXKMER - MINKMER + 1); 
     bf.reserve(MAXKMER - MINKMER + 1);
     for ( int i = 0; i < MAXKMER - MINKMER + 1; i++){
@@ -115,7 +118,9 @@ int main(){
     while (getline(input, line)){
         if (line[0] == '@'){
             getline(input, line);
-            exist(bf, line.substr(0, MAXKMER),MINKMER-1,line);
+            exist(line.substr(0, MAXKMER),MINKMER-1,line);
+            getline(input, line);
+            getline(input, line);
         }
     }
     input.close();
