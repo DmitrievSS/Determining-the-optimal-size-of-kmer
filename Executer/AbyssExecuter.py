@@ -1,7 +1,7 @@
 __author__ = 'serg'
 
 from Executer import Executer
-from Bloom.Utils.Constants import *
+from Utils.Constants import *
 
 
 class AbyssExecuter(Executer):

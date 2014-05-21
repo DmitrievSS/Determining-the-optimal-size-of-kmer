@@ -1,5 +1,5 @@
-from Bloom.Utils.Constants import SPAdes
-from Bloom.Utils.Constants import Python
+from Utils.Constants import SPAdes
+from Utils.Constants import Python
 
 __author__ = 'serg'
 

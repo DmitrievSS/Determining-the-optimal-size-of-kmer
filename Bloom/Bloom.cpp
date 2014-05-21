@@ -17,7 +17,7 @@ vector <T> defvect(T val, int size){
 class bloom_filter{ 
 private:
     int m;
-    vector< bool > list;
+    vector< int > list;
     vector< int > tmp;
     vector< vector<int> > hashtable;
 public:
@@ -26,10 +26,7 @@ public:
         m = -n * log(p) / (log(2)*log(2));
         k = m / n * log(2);
         //cout <<k<<" k \n";
-        list = vector<bool>(m);
-        for (int i =0; i < m; i++)
-            list[i] = false;
-
+        list = vector<int>(m);
         tmp = vector<int>(k);
         for (int i = 0; i < k; i++){
             int x = (2*i) + 1;
@@ -41,7 +38,7 @@ public:
         }
     }
     
-    int hashfunc(int k, string str, int prev = -1, char c = '_'){
+    int hashfunc(int k, string& str, int prev = -1, char c = '_'){
         int x = 2*(k-1) + 1;
         int res = 0;
         if (prev == -1 && c == '_'){
@@ -61,7 +58,7 @@ public:
         return res;
     }
 
-    pair<bool, vector<int> > exists(string kmer, vector<int> prev = vector<int>(0), char c = '_'){
+    pair<bool, vector<int> > exists(string& kmer, vector<int>&& prev = vector<int>(0), char c = '_'){
         bool result = false;
         if (prev.size() == 0){
             prev = defvect<int>(-1,k);
@@ -73,11 +70,7 @@ public:
             if (!list[ abs(kmer_hash % m)]){
                 //cout <<kmer_hash<< " hash \n";
                 result = true;
-            }
-        }
-        if (result){
-            for (const auto &i : tmp){
-                list[abs(i % m)] = true;
+                list[abs(kmer_hash % m)] = true;
             }
         }
         return pair<bool, vector<int>>(result,tmp);
@@ -86,8 +79,7 @@ public:
 
 vector<unsigned int> differentkmer;
 vector<bloom_filter> bf;
-
-pair<bool, vector<int>> exist (string kmer, int kstart, string line){
+pair<bool, vector<int> > exist (string&& kmer, int kstart, string &line){
     pair<bool,vector <int>> kmerhashes;
     if  (kmer.size() <= 20)
         kmerhashes = bf[kmer.size() - kstart -1].exists(kmer);
@@ -97,8 +89,10 @@ pair<bool, vector<int>> exist (string kmer, int kstart, string line){
     if (kmerhashes.first)
         differentkmer[kmer.size() - kstart -1] ++;
     pair<bool,vector <int>> lastkmerhashes = kmerhashes;
+    string juy; 
     for (int i = 1; i < line.size() - kmer.size() + 1; i++){
-        lastkmerhashes = bf[kmer.size() - kstart - 1].exists(line.substr(i,kmer.size()), lastkmerhashes.second, line[i - 1]);
+        juy = line.substr(i,kmer.size());
+        lastkmerhashes = bf[kmer.size() - kstart - 1].exists((juy), move(lastkmerhashes.second), line[i - 1]);
         if (lastkmerhashes.first)
             differentkmer[kmer.size() - kstart - 1]++;
     }
@@ -111,7 +105,7 @@ int main(){
     bf.reserve(MAXKMER - MINKMER + 1);
     for ( int i = 0; i < MAXKMER - MINKMER + 1; i++){
         differentkmer.push_back(0);
-        bf.push_back(bloom_filter(5000, 0.01));
+        bf.push_back(bloom_filter(50000000, 0.01));
     }
     ifstream input("new.fastq");
     string line;
