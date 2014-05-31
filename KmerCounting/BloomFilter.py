@@ -9,7 +9,7 @@ from math import e
 
 prefix = "../reads/"
 kmers = [21, 23, 25, 27, 29, 31, 35, 37, 39]
-reads = ["frag_2.fastq"]
+reads = ["frag_2.fastq, frag_1.fastq, 1.fastq, norm.fastq, 2.fastq"]
 reads = map(lambda x: prefix + x, reads)
 for read in reads:
     subprocess.call("./../KmerCounting/1", read)

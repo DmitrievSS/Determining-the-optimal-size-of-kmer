@@ -8,7 +8,7 @@ from run import *
 prefix = "../reads/"
 kmers = [21, 23, 25, 27, 29, 31, 35, 37, 39]
 # kmers = [23]
-_reads = ["frag_2.fastq"]
+_reads = ["frag_2.fastq, frag_1.fastq, 1.fastq, norm.fastq, 2.fastq"]
 assemblers = ["Abyss"]
 i = 0
 for read in _reads:
