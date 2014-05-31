@@ -1,5 +1,5 @@
-from Utils.Constants import SPAdes
-from Utils.Constants import Python
+from Constants import SPAdes
+from Constants import Python
 
 __author__ = 'serg'
 
