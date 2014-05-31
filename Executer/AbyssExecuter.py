@@ -12,6 +12,7 @@ class AbyssExecuter(Executer):
 
     def interpret(self):
         self.exArgs.append(ABYSS)
+        self.exArgs.append("np=8")
         for opt, arg in self.opts:
             if opt == "--k":
                 self.exArgs.append("k=" + arg)
@@ -19,3 +20,4 @@ class AbyssExecuter(Executer):
                 self.exArgs.append("name=" + arg)
             if opt == "--i":
                 self.exArgs.append("in=" + "'" + arg + "'")
+        # self.exArgs.append("np=1")

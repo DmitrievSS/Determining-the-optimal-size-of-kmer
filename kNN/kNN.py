@@ -59,4 +59,4 @@ class kNN():
 
 test = kNN()
 test.showData()
-print test.classifyKNN([10000000, 89, 90, 26])
+print test.classifyKNN([146798341, 50, 101, 23])
